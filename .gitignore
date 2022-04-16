@@ -1,4 +1,5 @@
 node_modules/
+*-wallet.json
 .anchor
 **/*.rs.bk
 build/
