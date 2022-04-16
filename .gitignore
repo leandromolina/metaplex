@@ -9,6 +9,7 @@ lib/
 deploy/
 venv/
 js/packages/cli/assets/
+js/packages/cli/commands.txt
 docs/lockup-ui/
 .DS_Store
 *~

@@ -6,7 +6,6 @@ import { CandyMachine, loadCandyProgramV2, loadWalletKey } from './helpers/accou
 import { mintV2 } from './commands/mint';
 import log from 'loglevel';
 
-const rpcUrl = "https://lingering-damp-pine.solana-mainnet.quiknode.pro/c430ad34250aed0b00156df7244b39d9164d1ece/"
 const chalk = require('chalk');
 program.version('0.0.2');
 
@@ -21,8 +20,12 @@ function myParseInt(value) {
 }
 
 programCommand('start_mint', { requireWallet: true })
+    .option(
+        '-r, --rpc-url <string>',
+        'custom rpc url since this is a heavy command',
+    )
     .action(async (_, cmd) => {
-        const { keypair, env, candyId } = cmd.opts();
+        const { keypair, env, candyId, rpcUrl } = cmd.opts();
 
         const walletKeyPair = loadWalletKey(keypair.split(',')[0]);
 
@@ -54,7 +57,7 @@ programCommand('start_mint', { requireWallet: true })
 
         if (remaining_items <= 0) {
             console.log(chalk.redBright(`This Mint is sold out.`))
-            //return
+            return
         }
 
         setTimeout(() => {
@@ -72,7 +75,7 @@ programCommand('start_mint', { requireWallet: true })
                 }
             }, 500)
 
-        }, remaining_time - 10000)
+        }, remaining_time - 5000)
     });
 
 function programCommand(
